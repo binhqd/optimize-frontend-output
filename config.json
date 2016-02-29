@@ -1,0 +1,9 @@
+{
+  "production": {
+    "ENV": {
+      "name": "production",
+      "apiEndpoint": "https://api.ideapod.com",
+      "staticUrl": "https://static.ideapod.com/"
+    }
+  }
+}

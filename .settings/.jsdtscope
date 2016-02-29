@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="gulp/|**/*.min.js|**/node_modules/*|**/bower_components/*" kind="src" path=""/>
+	<classpathentry excluding="**/*.min.js|**/node_modules/*|**/bower_components/*" kind="src" path="gulp"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
