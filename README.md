@@ -5,7 +5,7 @@
   - Don't commit anything that can be regenerated from other things that were committed such as bower_components, node_modules.
 
 ## 2. Minify JS + Uglify
-```javascrip
+```javascript
 var uglify = require('gulp-uglify');
  
 gulp.task('compress', function() {
@@ -52,6 +52,24 @@ gulp.task('concatAssets', function() {
 ```
 
 ## 5. Minify HTML
+This task can be done by using `gulp-htmlmin`. The main library of this plugin is `html-minifier` which have lots of great features that help optimize HTML output.
+Before minify:
+```html
+<body>
+  <a href='http://mylink.com'>
+    My Link
+  </a>
+  <!-- This is my button -->
+  <button disabled="disabled" value="My button"></button>
+  <!-- Another comment -->
+</body>
+```
+
+After minify:
+```html
+<body><a href='http://mylink.com'>My Link</a><button disabled value="My button"></button>
+```
+
 Example:
 ```javascript
 var gulp = require('gulp');
