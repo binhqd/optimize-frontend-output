@@ -100,7 +100,47 @@ gulp.task('imagemin', function() {
 ```
 
 ##  7. Gzip output
+This task can save up to 10 times of file sizes and it will make the load incredible faster. This can be done with `gulp-gzip`
+
+Example:
+```javascript
+var gzip = require('gulp-gzip');
+
+gulp.task('compress:dist', function() {
+  return gulp.src(['dist/styles/**/*.css', 'dist/scripts/**/*.js'], {base: 'dist'})
+    .pipe(gzip({
+      append: false
+    }))
+    .pipe(gulp.dest(paths.dist));
+});
+```
+
 ##  8. LESS/SASS precompiler
+```javascript
+var compass = require('gulp-compass');
+var autoprefixer = require('gulp-autoprefixer');
+
+gulp.task('styles', function(cb) {
+  return gulp.src('./src/*.scss')
+  .pipe(compass({
+    css : './tmp/styles',
+    sass : 'styles',
+    image : '.tmp/images/generated',
+    import_path : 'bower_components',
+    font : 'styles/fonts',
+    javascript : 'scripts',
+    generated_images_path : '.tmp/images/generated',
+    relative : true
+  }))
+  
+  .pipe(autoprefixer({
+    browsers : [ '> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1' ],
+    cascade : false
+  }))
+  .pipe(gulp.dest('./src/styles/'));
+});
+
+```
 ## 9. Prefix assets to prevent cache
 ## 10. Configuration
 ## 11. CDNdify
