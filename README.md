@@ -185,6 +185,32 @@ gulp.task("revreplace", function() {
 ```
 
 ## 10. Configuration
+  - Each prorject should have its own constant file, it often named as `config.js` or something similar
+  - Shouldn't commit development/test/staging constants to `master`. These files should be ignore using .gitignore
+  - Should support environment variables.
+Eg:
+```javascript
+var host = process.env.host || 'http://myhost.com';
+```
 ## 11. CDNdify
+CSS, images and javascript files should be served at a static server (cookieless, high concurrent, cache enable) or using a hosted CDN. In this case, path to these files should be update with the help of `gulp-cdnify`
+Example:
+```javascript
+var cdnify = require('gulp-cdnify');
+
+return gulp.src('.src/views/**/*.html')
+  .pipe(cdnify({
+    base: 'https://cdn.google.com',
+    html: {
+      'img[ng-src]': 'ng-src',
+      'img[src]': 'src',
+      'link[rel]': 'href',
+      'script[src]': 'src',
+      'video[poster]': 'poster',
+      'source[src]': 'src'
+    }
+  }))
+  .pipe(gulp.dest('dist/scripts'));
+```
 ## 12. JSLint/ESLint checker
 ## 13. SEO friendly
