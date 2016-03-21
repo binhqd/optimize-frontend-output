@@ -53,6 +53,7 @@ gulp.task('concatAssets', function() {
 
 ## 5. Minify HTML
 This task can be done by using `gulp-htmlmin`. The main library of this plugin is `html-minifier` which have lots of great features that help optimize HTML output.
+
 Before minify:
 ```html
 <body>
@@ -64,13 +65,11 @@ Before minify:
   <!-- Another comment -->
 </body>
 ```
-
 After minify:
 ```html
 <body><a href='http://mylink.com'>My Link</a><button disabled value="My button"></button>
 ```
-
-Example:
+Example of use:
 ```javascript
 var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
@@ -81,12 +80,29 @@ gulp.task('minify', function() {
     .pipe(gulp.dest('dist'))
 });
 ```
-## 6. Minify SVG
-## 7. Minify Images
-##  8. Gzip output
-##  9. LESS/SASS precompiler
-## 10. Prefix assets to prevent cache
-## 11. Configuration
-## 12. CDNdify
-## 13. JSLint/ESLint checker
-## 14. SEO friendly
+## 6. Minify images and svg files
+Example:
+```javascript
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
+
+gulp.task('imagemin', function() {
+  return gulp.src('/images/**/*.{png,jpg,jpeg,gif,svg}')
+  .pipe(imagemin({
+    progressive : true,
+    svgoPlugins : [ {
+      removeViewBox : false
+    } ],
+    use : [ pngquant() ]
+  }))
+  .pipe(gulp.dest('dist/images'));
+});
+```
+
+##  7. Gzip output
+##  8. LESS/SASS precompiler
+## 9. Prefix assets to prevent cache
+## 10. Configuration
+## 11. CDNdify
+## 12. JSLint/ESLint checker
+## 13. SEO friendly
