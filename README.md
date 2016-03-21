@@ -142,6 +142,48 @@ gulp.task('styles', function(cb) {
 
 ```
 ## 9. Prefix assets to prevent cache
+This is a must for each deployment to prevent user loading old version of files from their browser cache
+
+Example:
+```javascript
+var rev = require('gulp-rev');
+ 
+gulp.task('default', function () {
+	// by default, gulp would pick `assets/css` as the base, 
+	// so we need to set it explicitly: 
+	return gulp.src(['assets/css/*.css', 'assets/js/*.js'], {base: 'assets'})
+		.pipe(gulp.dest('build/assets'))  // copy original assets to build dir 
+		.pipe(rev())
+		.pipe(gulp.dest('build/assets'))  // write rev'd assets to build dir 
+		.pipe(rev.manifest())
+		.pipe(gulp.dest('.tmp')); // write manifest to build dir 
+});
+```
+Manifest output example (rev-manifest.json):
+```json
+{
+  "non_120x120.png": "non_120x120-276ba60a.png",
+  "non_400x245.jpg": "non_400x245-1874a0cf.jpg",
+  "Loading.gif": "Loading-6b415cd7.gif",
+  "badge_iecountdown.png": "badge_iecountdown-af94592e.png",
+  "background_pattern.gif": "background_pattern-0abf0883.gif",
+  "ideapod-default.jpg": "ideapod-default-d8f4b42e.jpg",
+  "non_240x240.png": "non_240x240-90584c55.png",
+  "front/icon-point.png": "front/icon-point-77f3ebc2.png"
+}
+```
+You should do update your html, css, js files according to your manifest
+```javascript
+var revReplace = require("gulp-rev-replace");
+gulp.task("revreplace", function() {
+  var manifest = gulp.src("/.tmp/rev-manifest.json");
+
+  return gulp.src(opt.srcFolder + "/index.html")
+    .pipe(revReplace({manifest: manifest}))
+    .pipe(gulp.dest('dist'));
+});
+```
+
 ## 10. Configuration
 ## 11. CDNdify
 ## 12. JSLint/ESLint checker
